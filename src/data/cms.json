@@ -1,0 +1,13 @@
+{
+  "repoUrl": "https://github.com/Dialogue-Sempre/Landing-Page.git",
+  "owner": "Dialogue-Sempre",
+  "repo": "Landing-Page",
+  "branch": "CMS",
+  "files": {
+    "site": "src/data/site.json",
+    "painPoints": "src/data/painPoints.json",
+    "modules": "src/data/modules.json",
+    "plans": "src/data/plans.json",
+    "contact": "src/data/contact.json"
+  }
+}

@@ -1,6 +1,12 @@
 ---
 import site from '../data/site.json';
+import CmsText from './CmsText.astro';
 
+interface Props {
+	editable?: boolean;
+}
+
+const { editable = false } = Astro.props;
 const year = new Date().getFullYear();
 ---
 
@@ -8,27 +14,38 @@ const year = new Date().getFullYear();
 	<section class="mx-auto flex max-w-6xl flex-col gap-8 md:flex-row md:items-start md:justify-between">
 		<article>
 			<p class="text-lg font-bold text-brand-white">
-				DIALOGUE <span class="text-brand-gold">Sempre</span>
+				<CmsText file="site" path="logoPrimary" editable={editable} class="inline">{site.logoPrimary}</CmsText>
+				{' '}
+				<CmsText file="site" path="logoAccent" editable={editable} class="inline text-brand-gold">
+					{site.logoAccent}
+				</CmsText>
 			</p>
 			<p class="mt-2 max-w-sm text-sm text-brand-white/75">
-				Plataforma jurídica e de gestão da NR-1 para conformidade contínua.
+				<CmsText file="site" path="footer.tagline" editable={editable}>{site.footer.tagline}</CmsText>
 			</p>
 			<p class="mt-4 text-sm text-brand-white/60">
-				CNPJ: {site.cnpj}
+				<CmsText file="site" path="cnpjLabel" editable={editable} class="inline">{site.cnpjLabel}</CmsText>
+				{' '}
+				<CmsText file="site" path="cnpj" editable={editable} class="inline">{site.cnpj}</CmsText>
 			</p>
 		</article>
 
-		<nav aria-label="Links institucionais">
+		<nav aria-label={site.footer.navAriaLabel}>
 			<ul class="flex flex-col gap-2 text-sm">
+				{
+					site.footer.links.map((link, index) => (
+						<li>
+							<a href={editable ? '#' : link.href} class="transition-colors hover:text-brand-gold">
+								<CmsText file="site" path={`footer.links.${index}.label`} editable={editable}>
+									{link.label}
+								</CmsText>
+							</a>
+						</li>
+					))
+				}
 				<li>
-					<a href="/privacidade" class="transition-colors hover:text-brand-gold">Política de Privacidade</a>
-				</li>
-				<li>
-					<a href="/termos" class="transition-colors hover:text-brand-gold">Termos de Uso</a>
-				</li>
-				<li>
-					<a href={`mailto:${site.email}`} class="transition-colors hover:text-brand-green">
-						{site.email}
+					<a href={editable ? '#' : `mailto:${site.email}`} class="transition-colors hover:text-brand-green">
+						<CmsText file="site" path="email" editable={editable}>{site.email}</CmsText>
 					</a>
 				</li>
 			</ul>
@@ -36,6 +53,10 @@ const year = new Date().getFullYear();
 	</section>
 
 	<p class="mx-auto mt-10 max-w-6xl border-t border-brand-white/15 pt-6 text-sm text-brand-white/55">
-		© {year} {site.legalName}. Todos os direitos reservados.
+		© {year}{' '}
+		<CmsText file="site" path="legalName" editable={editable} class="inline">{site.legalName}</CmsText>.{' '}
+		<CmsText file="site" path="footer.copyrightSuffix" editable={editable} class="inline">
+			{site.footer.copyrightSuffix}
+		</CmsText>
 	</p>
 </footer>

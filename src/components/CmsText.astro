@@ -1,0 +1,29 @@
+---
+interface Props {
+	file: string;
+	path: string;
+	editable?: boolean;
+	as?: string;
+	class?: string;
+}
+
+const { file, path, editable = false, as: Tag = 'span', class: className } = Astro.props;
+---
+
+{
+	editable ? (
+		<Tag
+			class:list={[className, 'cms-editable rounded-sm outline outline-1 outline-dashed outline-brand-gold/60 focus:outline-brand-gold']}
+			data-content-file={file}
+			data-content-path={path}
+			contenteditable="true"
+			spellcheck="true"
+		>
+			<slot />
+		</Tag>
+	) : (
+		<Tag class={className} data-content-file={file} data-content-path={path}>
+			<slot />
+		</Tag>
+	)
+}

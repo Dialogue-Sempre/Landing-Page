@@ -19,5 +19,6 @@ const { title, description, canonicalPath, robots } = Astro.props;
 	</head>
 	<body class="min-h-screen bg-brand-white font-sans text-brand-ink antialiased">
 		<slot />
+		<script src="/scripts/content-runtime.js" defer></script>
 	</body>
 </html>

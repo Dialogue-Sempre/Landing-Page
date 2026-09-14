@@ -1,59 +1,65 @@
-[
-  {
-    "id": "gratuito",
-    "name": "Gratuito",
-    "price": "R$ 0",
-    "period": "/mês",
-    "description": "Degustação para conhecer a plataforma com limite de colaboradores.",
-    "highlighted": false,
-    "cta": {
-      "label": "Comece grátis",
-      "href": "https://app.dialoguesempre.com.br"
+{
+  "title": "Tabela de preços",
+  "subtitle": "Escolha o plano ideal para a conformidade NR-1 da sua empresa. Valores editáveis via dados do projeto.",
+  "listAriaLabel": "Planos disponíveis",
+  "highlightedBadge": "Mais escolhido",
+  "items": [
+    {
+      "id": "gratuito",
+      "name": "Gratuito",
+      "price": "R$ 0",
+      "period": "/mês",
+      "description": "Degustação para conhecer a plataforma com limite de colaboradores.",
+      "highlighted": false,
+      "cta": {
+        "label": "Comece grátis",
+        "href": "https://app.dialoguetech.com.br/cadastro"
+      },
+      "features": [
+        "Até 10 colaboradores",
+        "Inventário de riscos básico",
+        "1 unidade / CNPJ",
+        "Suporte por e-mail"
+      ]
     },
-    "features": [
-      "Até 10 colaboradores",
-      "Inventário de riscos básico",
-      "1 unidade / CNPJ",
-      "Suporte por e-mail"
-    ]
-  },
-  {
-    "id": "mensal-fixo",
-    "name": "Mensal Fixo",
-    "price": "R$ 197",
-    "period": "/mês",
-    "description": "Cobertura completa dos módulos NR-1 para operação contínua.",
-    "highlighted": true,
-    "cta": {
-      "label": "Assinar agora",
-      "href": "https://app.dialoguesempre.com.br"
+    {
+      "id": "mensal-fixo",
+      "name": "Mensal Fixo",
+      "price": "R$ 197",
+      "period": "/mês",
+      "description": "Cobertura completa dos módulos NR-1 para operação contínua.",
+      "highlighted": true,
+      "cta": {
+        "label": "Assinar agora",
+        "href": "https://app.dialoguetech.com.br/cadastro"
+      },
+      "features": [
+        "Colaboradores ilimitados",
+        "Inventário de riscos (GRO)",
+        "Matriz de severidade",
+        "Planos de ação (PGR)",
+        "Exportação de laudos",
+        "Suporte prioritário"
+      ]
     },
-    "features": [
-      "Colaboradores ilimitados",
-      "Inventário de riscos (GRO)",
-      "Matriz de severidade",
-      "Planos de ação (PGR)",
-      "Exportação de laudos",
-      "Suporte prioritário"
-    ]
-  },
-  {
-    "id": "personalizado",
-    "name": "Personalizado",
-    "price": "Sob consulta",
-    "period": "",
-    "description": "Consultoria jurídica e setup sob medida para grupos e redes.",
-    "highlighted": false,
-    "cta": {
-      "label": "Falar com consultoria",
-      "href": "#contato"
-    },
-    "features": [
-      "Múltiplos CNPJs / unidades",
-      "Onboarding assistido",
-      "SLA e treinamento",
-      "Integrações sob demanda",
-      "Consultoria jurídica NR-1"
-    ]
-  }
-]
+    {
+      "id": "personalizado",
+      "name": "Personalizado",
+      "price": "Sob consulta",
+      "period": "",
+      "description": "Consultoria jurídica e setup sob medida para grupos e redes.",
+      "highlighted": false,
+      "cta": {
+        "label": "Falar com consultoria",
+        "href": "#contato"
+      },
+      "features": [
+        "Múltiplos CNPJs / unidades",
+        "Onboarding assistido",
+        "SLA e treinamento",
+        "Integrações sob demanda",
+        "Consultoria jurídica NR-1"
+      ]
+    }
+  ]
+}

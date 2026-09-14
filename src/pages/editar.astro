@@ -1,0 +1,256 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import PainPoints from '../components/PainPoints.astro';
+import Modules from '../components/Modules.astro';
+import Pricing from '../components/Pricing.astro';
+import ContactForm from '../components/ContactForm.astro';
+import Footer from '../components/Footer.astro';
+import site from '../data/site.json';
+import painPoints from '../data/painPoints.json';
+import modules from '../data/modules.json';
+import plans from '../data/plans.json';
+import contact from '../data/contact.json';
+import cms from '../data/cms.json';
+
+const bundle = { site, painPoints, modules, plans, contact };
+---
+
+<Layout
+	title={`Editar conteúdos | ${site.name}`}
+	description="Editor de conteúdos da landing page Dialogue Sempre."
+	canonicalPath="/editar"
+	robots="noindex,nofollow"
+>
+	<div
+		id="cms-toolbar"
+		class="sticky top-0 z-[60] border-b border-brand-gold/40 bg-brand-ink px-4 py-3 text-brand-white shadow-lg sm:px-6"
+	>
+		<div class="mx-auto flex max-w-6xl flex-col gap-3">
+			<div class="flex flex-wrap items-center justify-between gap-3">
+				<p class="text-sm">
+					<strong class="text-brand-gold">Modo edição</strong>
+					— repo fixo
+					<a
+						href="https://github.com/Dialogue-Sempre/Landing-Page"
+						class="underline decoration-brand-gold/50 hover:text-brand-gold"
+						target="_blank"
+						rel="noreferrer"
+					>
+						Dialogue-Sempre/Landing-Page
+					</a>
+					· branch <code class="rounded bg-white/10 px-1">{cms.branch}</code>
+				</p>
+				<p class="flex items-center gap-2">
+					<span id="cms-status" class="text-xs text-brand-white/70" aria-live="polite"></span>
+					<a
+						href="/"
+						class="rounded-full px-3 py-1.5 text-sm font-medium text-brand-white/90 transition hover:bg-white/10"
+					>
+						Ver site
+					</a>
+					<button
+						type="button"
+						id="cms-save"
+						class="rounded-full bg-brand-gold px-4 py-1.5 text-sm font-semibold text-brand-ink transition hover:brightness-105"
+					>
+						Salvar
+					</button>
+				</p>
+			</div>
+			<p class="flex flex-wrap items-center gap-2">
+				<label for="cms-token" class="text-xs text-brand-white/70">Token (só para gravar)</label>
+				<input
+					id="cms-token"
+					type="password"
+					autocomplete="off"
+					placeholder="PAT com contents:write — GitHub bloqueia escrita anônima mesmo em repo público"
+					class="min-w-[16rem] flex-1 rounded-lg border border-white/20 bg-white/10 px-3 py-1.5 text-sm text-brand-white outline-none placeholder:text-brand-white/40 focus:border-brand-gold"
+				/>
+			</p>
+		</div>
+	</div>
+
+	<div id="cms-editor-root" data-cms-editor="true">
+		<Header editable={true} />
+		<main>
+			<Hero editable={true} />
+			<PainPoints editable={true} />
+			<Modules editable={true} />
+			<Pricing editable={true} />
+			<ContactForm editable={true} />
+		</main>
+		<Footer editable={true} />
+	</div>
+
+	<script is:inline define:vars={{ bundle, cms }}>
+		(function () {
+			var STORAGE_KEY = 'dialogue-content-draft';
+			var TOKEN_KEY = 'dialogue-cms-github-token';
+			var statusEl = document.getElementById('cms-status');
+			var saveBtn = document.getElementById('cms-save');
+			var tokenInput = document.getElementById('cms-token');
+			var root = document.getElementById('cms-editor-root');
+
+			if (tokenInput) {
+				try {
+					tokenInput.value = sessionStorage.getItem(TOKEN_KEY) || '';
+				} catch (e) {}
+				tokenInput.addEventListener('change', function () {
+					try {
+						sessionStorage.setItem(TOKEN_KEY, tokenInput.value.trim());
+					} catch (e) {}
+				});
+			}
+
+			function setStatus(msg, isError) {
+				if (!statusEl) return;
+				statusEl.textContent = msg || '';
+				statusEl.className = 'text-xs ' + (isError ? 'text-red-300' : 'text-brand-white/70');
+			}
+
+			function deepClone(value) {
+				return JSON.parse(JSON.stringify(value));
+			}
+
+			function setByPath(obj, path, value) {
+				var parts = path.split('.');
+				var cursor = obj;
+				for (var i = 0; i < parts.length - 1; i++) {
+					var key = parts[i];
+					var next = parts[i + 1];
+					var asIndex = String(Number(next)) === next;
+					if (cursor[key] == null) cursor[key] = asIndex ? [] : {};
+					cursor = cursor[key];
+				}
+				cursor[parts[parts.length - 1]] = value;
+			}
+
+			function collectBundle() {
+				var next = deepClone(bundle);
+				document.querySelectorAll('[data-content-file][data-content-path]').forEach(function (el) {
+					var file = el.getAttribute('data-content-file');
+					var path = el.getAttribute('data-content-path');
+					var attr = el.getAttribute('data-cms-attr');
+					if (!file || !path || !next[file]) return;
+					var value = attr ? el.getAttribute(attr) : el.textContent;
+					if (typeof value !== 'string') return;
+					setByPath(next[file], path, value.trim());
+				});
+				return next;
+			}
+
+			function utf8ToBase64(str) {
+				return btoa(unescape(encodeURIComponent(str)));
+			}
+
+			async function githubJson(url, token, options) {
+				var res = await fetch(url, {
+					method: (options && options.method) || 'GET',
+					headers: {
+						Accept: 'application/vnd.github+json',
+						Authorization: 'Bearer ' + token,
+						'X-GitHub-Api-Version': '2022-11-28',
+						'Content-Type': 'application/json',
+					},
+					body: options && options.body ? JSON.stringify(options.body) : undefined,
+				});
+				var data = await res.json().catch(function () {
+					return {};
+				});
+				if (!res.ok) {
+					throw new Error(data.message || 'GitHub HTTP ' + res.status);
+				}
+				return data;
+			}
+
+			async function saveFile(token, key, data) {
+				var path = cms.files[key];
+				if (!path) return;
+				var apiBase =
+					'https://api.github.com/repos/' +
+					cms.owner +
+					'/' +
+					cms.repo +
+					'/contents/' +
+					path;
+				var sha;
+				try {
+					var current = await githubJson(
+						apiBase + '?ref=' + encodeURIComponent(cms.branch),
+						token
+					);
+					sha = current.sha;
+				} catch (err) {
+					if (!String(err.message || '').includes('404')) throw err;
+				}
+				var content = JSON.stringify(data, null, 2) + '\n';
+				await githubJson(apiBase, token, {
+					method: 'PUT',
+					body: {
+						message: 'cms: atualiza ' + key + '.json',
+						content: utf8ToBase64(content),
+						branch: cms.branch,
+						sha: sha,
+					},
+				});
+			}
+
+			if (root) {
+				root.addEventListener('click', function (event) {
+					var anchor = event.target.closest('a');
+					if (anchor && !anchor.closest('[contenteditable="true"]')) {
+						event.preventDefault();
+					}
+				});
+			}
+
+			if (saveBtn) {
+				saveBtn.addEventListener('click', async function () {
+					var token = (tokenInput && tokenInput.value.trim()) || '';
+					if (!token) {
+						setStatus('Cole um GitHub Token para salvar.', true);
+						if (tokenInput) tokenInput.focus();
+						return;
+					}
+					try {
+						sessionStorage.setItem(TOKEN_KEY, token);
+					} catch (e) {}
+
+					var payload = collectBundle();
+					saveBtn.disabled = true;
+					setStatus('Salvando JSONs na branch ' + cms.branch + '…');
+					try {
+						localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+						window.dispatchEvent(
+							new CustomEvent('dialogue:content-updated', { detail: payload })
+						);
+
+						var keys = Object.keys(cms.files);
+						for (var i = 0; i < keys.length; i++) {
+							var key = keys[i];
+							setStatus('Enviando ' + key + '.json…');
+							await saveFile(token, key, payload[key]);
+						}
+
+						setStatus('Salvo no GitHub (branch ' + cms.branch + ').');
+						bundle.site = payload.site;
+						bundle.painPoints = payload.painPoints;
+						bundle.modules = payload.modules;
+						bundle.plans = payload.plans;
+						bundle.contact = payload.contact;
+					} catch (err) {
+						setStatus(
+							(err && err.message ? err.message : 'Erro ao salvar') +
+								' (rascunho ficou no navegador)',
+							true
+						);
+					} finally {
+						saveBtn.disabled = false;
+					}
+				});
+			}
+		})();
+	</script>
+</Layout>

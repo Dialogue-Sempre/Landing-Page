@@ -23,7 +23,7 @@ const jsonLd = {
   operatingSystem: 'Web',
   url: site.url,
   description: site.description,
-  offers: plans.map((plan) => ({
+  offers: plans.items.map((plan) => ({
     '@type': 'Offer',
     name: plan.name,
     description: plan.description,
@@ -40,8 +40,15 @@ const jsonLd = {
 <meta name="description" content={description} />
 {robots && <meta name="robots" content={robots} />}
 <link rel="canonical" href={canonical} />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="icon" href="/favicon.ico" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=4" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=4" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=4" />
+<link rel="manifest" href="/manifest.webmanifest" />
+<meta name="theme-color" content="#2E5088" />
+<meta name="application-name" content={site.name} />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content={site.name} />
+<meta name="mobile-web-app-capable" content="yes" />
 <meta name="generator" content={Astro.generator} />
 
 <meta property="og:type" content="website" />

@@ -1,6 +1,13 @@
 ---
 import { Check } from 'lucide-astro';
 import plans from '../data/plans.json';
+import CmsText from './CmsText.astro';
+
+interface Props {
+	editable?: boolean;
+}
+
+const { editable = false } = Astro.props;
 ---
 
 <section
@@ -15,16 +22,16 @@ import plans from '../data/plans.json';
 
 	<header class="relative mx-auto mb-12 max-w-6xl animate-fade-up animate-duration-700">
 		<h2 id="precos-heading" class="text-3xl font-bold tracking-tight text-brand-blue sm:text-4xl">
-			Tabela de preços
+			<CmsText file="plans" path="title" editable={editable}>{plans.title}</CmsText>
 		</h2>
 		<p class="mt-3 max-w-2xl text-lg text-brand-blue-light">
-			Escolha o plano ideal para a conformidade NR-1 da sua empresa. Valores editáveis via dados do projeto.
+			<CmsText file="plans" path="subtitle" editable={editable}>{plans.subtitle}</CmsText>
 		</p>
 	</header>
 
-	<section class="relative mx-auto grid max-w-6xl gap-6 lg:grid-cols-3" aria-label="Planos disponíveis">
+	<section class="relative mx-auto grid max-w-6xl gap-6 lg:grid-cols-3" aria-label={plans.listAriaLabel}>
 		{
-			plans.map((plan) => (
+			plans.items.map((plan, planIndex) => (
 				<article
 					class:list={[
 						'flex flex-col rounded-2xl border bg-brand-white p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl',
@@ -34,24 +41,52 @@ import plans from '../data/plans.json';
 					]}
 				>
 					{plan.highlighted && (
-						<p class="mb-3 text-xs font-bold uppercase tracking-wider text-brand-green">Mais escolhido</p>
+						<p class="mb-3 text-xs font-bold uppercase tracking-wider text-brand-green">
+							<CmsText file="plans" path="highlightedBadge" editable={editable}>
+								{plans.highlightedBadge}
+							</CmsText>
+						</p>
 					)}
-					<h3 class="text-xl font-semibold text-brand-blue">{plan.name}</h3>
-					<p class="mt-2 text-sm text-brand-blue-light">{plan.description}</p>
+					<h3 class="text-xl font-semibold text-brand-blue">
+						<CmsText file="plans" path={`items.${planIndex}.name`} editable={editable}>
+							{plan.name}
+						</CmsText>
+					</h3>
+					<p class="mt-2 text-sm text-brand-blue-light">
+						<CmsText file="plans" path={`items.${planIndex}.description`} editable={editable}>
+							{plan.description}
+						</CmsText>
+					</p>
 					<p class="mt-6 flex items-baseline gap-1">
-						<span class="text-3xl font-bold text-brand-blue">{plan.price}</span>
-						{plan.period && <span class="text-brand-blue-light">{plan.period}</span>}
+						<span class="text-3xl font-bold text-brand-blue">
+							<CmsText file="plans" path={`items.${planIndex}.price`} editable={editable}>
+								{plan.price}
+							</CmsText>
+						</span>
+						{plan.period && (
+							<span class="text-brand-blue-light">
+								<CmsText file="plans" path={`items.${planIndex}.period`} editable={editable}>
+									{plan.period}
+								</CmsText>
+							</span>
+						)}
 					</p>
 					<ul class="mt-6 flex-1 space-y-3">
-						{plan.features.map((feature) => (
+						{plan.features.map((feature, featureIndex) => (
 							<li class="flex items-start gap-2 text-sm text-brand-ink/80">
 								<Check class="mt-0.5 h-4 w-4 shrink-0 text-brand-green" aria-hidden="true" />
-								{feature}
+								<CmsText
+									file="plans"
+									path={`items.${planIndex}.features.${featureIndex}`}
+									editable={editable}
+								>
+									{feature}
+								</CmsText>
 							</li>
 						))}
 					</ul>
 					<a
-						href={plan.cta.href}
+						href={editable ? '#' : plan.cta.href}
 						class:list={[
 							'mt-8 inline-flex items-center justify-center rounded-full px-4 py-3 text-sm font-semibold transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2',
 							plan.highlighted
@@ -59,7 +94,9 @@ import plans from '../data/plans.json';
 								: 'bg-brand-green text-brand-white hover:brightness-110 focus-visible:outline-brand-green',
 						]}
 					>
-						{plan.cta.label}
+						<CmsText file="plans" path={`items.${planIndex}.cta.label`} editable={editable}>
+							{plan.cta.label}
+						</CmsText>
 					</a>
 				</article>
 			))

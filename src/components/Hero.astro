@@ -1,5 +1,24 @@
 ---
 import site from '../data/site.json';
+import CmsText from './CmsText.astro';
+
+interface Props {
+	editable?: boolean;
+}
+
+const { editable = false } = Astro.props;
+
+const hrefMap = {
+	loginUrl: site.loginUrl,
+	cadastroUrl: site.cadastroUrl,
+} as const;
+
+const primaryHref = editable
+	? '#'
+	: (hrefMap[site.hero.primaryCta.hrefKey as keyof typeof hrefMap] ?? site.cadastroUrl);
+const secondaryHref = editable
+	? '#'
+	: (hrefMap[site.hero.secondaryCta.hrefKey as keyof typeof hrefMap] ?? site.loginUrl);
 ---
 
 <section
@@ -21,29 +40,33 @@ import site from '../data/site.json';
 	></span>
 
 	<p class="animate-fade-up animate-duration-500 mx-auto mb-4 w-full max-w-6xl text-sm font-semibold uppercase tracking-[0.2em] text-brand-gold">
-		{site.name}
+		<CmsText file="site" path="hero.eyebrow" editable={editable}>{site.hero.eyebrow}</CmsText>
 	</p>
 	<h1
 		id="hero-heading"
 		class="animate-fade-up animate-duration-700 mx-auto w-full max-w-4xl text-4xl font-bold leading-tight tracking-tight text-brand-white sm:max-w-6xl sm:text-5xl lg:text-6xl"
 	>
-		{site.h1}
+		<CmsText file="site" path="hero.h1" editable={editable} as="span">{site.hero.h1}</CmsText>
 	</h1>
 	<p class="animate-fade-up animate-duration-700 animate-delay-150 mx-auto mt-6 w-full max-w-6xl text-lg leading-relaxed text-brand-white/90 sm:text-xl">
-		<span class="block max-w-2xl">{site.heroSubtitle}</span>
+		<span class="block max-w-2xl">
+			<CmsText file="site" path="hero.subtitle" editable={editable}>{site.hero.subtitle}</CmsText>
+		</span>
 	</p>
 	<p class="animate-fade-up animate-duration-700 animate-delay-300 mx-auto mt-10 flex w-full max-w-6xl flex-wrap items-center gap-4">
 		<a
-			href="/cadastro"
+			href={primaryHref}
 			class="inline-flex items-center justify-center rounded-full bg-brand-gold px-6 py-3 text-base font-semibold text-brand-ink shadow-lg shadow-black/10 transition-all duration-300 hover:-translate-y-0.5 hover:brightness-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-gold"
 		>
-			Comece grátis
+			<CmsText file="site" path="hero.primaryCta.label" editable={editable}>{site.hero.primaryCta.label}</CmsText>
 		</a>
 		<a
-			href="/login"
+			href={secondaryHref}
 			class="inline-flex items-center justify-center rounded-full bg-brand-green px-6 py-3 text-base font-semibold text-brand-white shadow-lg shadow-brand-green/25 transition-all duration-300 hover:-translate-y-0.5 hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green"
 		>
-			Já tenho conta
+			<CmsText file="site" path="hero.secondaryCta.label" editable={editable}>
+				{site.hero.secondaryCta.label}
+			</CmsText>
 		</a>
 	</p>
 </section>
