@@ -1,0 +1,25 @@
+{
+  "title": "Módulos do sistema",
+  "subtitle": "Tudo o que você precisa para GRO e PGR em um fluxo único, auditável e orientado à NR-1.",
+  "listAriaLabel": "Lista de módulos NR-1",
+  "items": [
+    {
+      "id": "inventario",
+      "title": "Inventário de Riscos (GRO)",
+      "description": "Mapeie perigos e fatores de risco psicossocial e ocupacional com rastreabilidade para o Gerenciamento de Riscos Ocupacionais.",
+      "icon": "ShieldCheck"
+    },
+    {
+      "id": "matriz",
+      "title": "Matriz de Severidade",
+      "description": "Classifique probabilidade e severidade em uma matriz clara, priorizando o que exige ação imediata na fiscalização.",
+      "icon": "AlertTriangle"
+    },
+    {
+      "id": "planos",
+      "title": "Planos de Ação (PGR)",
+      "description": "Transforme achados em planos de ação do PGR com responsáveis, prazos e evidências prontas para auditoria.",
+      "icon": "FileText"
+    }
+  ]
+}

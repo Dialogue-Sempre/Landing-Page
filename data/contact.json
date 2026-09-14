@@ -1,0 +1,35 @@
+{
+  "title": "Fale com a Dialogue Sempre",
+  "subtitle": "Deixe seus dados e nossa equipe retorna com análise e próximos passos.",
+  "formAriaLabel": "Formulário de captação",
+  "submitLabel": "Enviar contato",
+  "fields": [
+    {
+      "id": "nome",
+      "name": "nome",
+      "type": "text",
+      "label": "Nome",
+      "placeholder": "Seu nome completo",
+      "autocomplete": "name",
+      "required": true
+    },
+    {
+      "id": "email",
+      "name": "email",
+      "type": "email",
+      "label": "E-mail",
+      "placeholder": "voce@empresa.com.br",
+      "autocomplete": "email",
+      "required": true
+    },
+    {
+      "id": "empresa",
+      "name": "empresa",
+      "type": "text",
+      "label": "Empresa",
+      "placeholder": "Razão social ou nome fantasia",
+      "autocomplete": "organization",
+      "required": true
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "title": "Dores & Solução",
+  "subtitle": "A complexidade da NR-1 deixa sua empresa exposta. A Dialogue Sempre transforma conformidade em processo contínuo.",
+  "compareAriaLabel": "Comparativo dor e solução",
+  "pain": {
+    "badge": "Sem automação",
+    "title": "Complexidade da NR-1",
+    "items": [
+      "Planilhas e laudos dispersos, difíceis de auditar",
+      "Risco de multas e autuações da fiscalização",
+      "Inventário e PGR desatualizados entre unidades",
+      "Demora na emissão de evidências jurídicas"
+    ]
+  },
+  "solution": {
+    "badge": "Com Dialogue Sempre",
+    "title": "Automação jurídica e SST",
+    "items": [
+      "Inventário de riscos centralizado e rastreável",
+      "Prevenção de multas com evidências prontas",
+      "Matriz e planos de ação atualizados em tempo real",
+      "Emissão facilitada de laudos e documentação do PGR"
+    ]
+  }
+}
