@@ -16,10 +16,22 @@
   "navAriaLabel": "Navegação principal",
   "logoAriaLabel": "Dialogue Sempre — início",
   "nav": [
-    { "href": "/#dores", "label": "Dores & Solução" },
-    { "href": "/#modulos", "label": "Módulos" },
-    { "href": "/#precos", "label": "Preços" },
-    { "href": "/#contato", "label": "Contato" }
+    {
+      "href": "/#dores",
+      "label": "Dores & Solução"
+    },
+    {
+      "href": "/#modulos",
+      "label": "Módulos"
+    },
+    {
+      "href": "/#precos",
+      "label": "Preços"
+    },
+    {
+      "href": "/#contato",
+      "label": "Contato"
+    }
   ],
   "header": {
     "loginLabel": "Entrar",
@@ -43,8 +55,14 @@
     "tagline": "Plataforma jurídica e de gestão da NR-1 para conformidade contínua.",
     "navAriaLabel": "Links institucionais",
     "links": [
-      { "label": "Política de Privacidade", "href": "/privacidade" },
-      { "label": "Termos de Uso", "href": "/termos" }
+      {
+        "label": "Política de Privacidade",
+        "href": "/privacidade"
+      },
+      {
+        "label": "Termos de Uso",
+        "href": "/termos"
+      }
     ],
     "copyrightSuffix": "Todos os direitos reservados."
   }
