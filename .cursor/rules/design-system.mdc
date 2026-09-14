@@ -1,0 +1,26 @@
+---
+description: Regras das Skills de UI e Design System da Dialogue Sempre
+globs: src/**/*.astro, src/**/*.tsx
+---
+
+# Skill: Design System & UI Moderno (Dialogue Sempre)
+
+Sempre que gerar novos componentes ou telas, aplique os padrões das skills abaixo:
+
+## 1. Skill de Tipografia e Cores
+- **Fonte:** Utilizar `Plus Jakarta Sans` para transmitir modernidade e tom corporativo.
+- **Paleta Oficial (base + contraste):**
+  - Base: `brand-blue` `#2E5088`, `brand-blue-light` `#6D8EB5`, `brand-gold` `#F2D049`.
+  - Verde de conformidade: `brand-green` `#1F9D6C` + `brand-green-soft` `#E6F6EF`.
+  - Superfícies: `brand-surface` `#F5F7FB`, `brand-gold-soft` `#FFF6D6`, `brand-white`, `brand-ink`.
+  - Alerta pontual: `brand-alert` `#DC4A3D`. WhatsApp: `brand-whatsapp` `#25D366`.
+- CTA primário: `bg-brand-gold text-brand-ink`. CTA secundário/sucesso: `bg-brand-green text-white`.
+
+## 2. Skill de Ícones (Lucide)
+- Importe ícones do `lucide-astro` (ex: `ShieldCheck`, `FileText`, `Users`, `AlertTriangle`).
+- Ícones padrão: `text-brand-gold` em cards azuis; `text-brand-green` em estados positivos.
+
+## 3. Skill de Interatividade e Animações (Tailwind Animated & Magic UI)
+- Classes: `animate-fade-up`, `animate-duration-500`.
+- Cards: `transition-all duration-300 hover:-translate-y-1 hover:shadow-xl`.
+- Alternar fundos (`brand-surface` / `brand-green-soft` / branco) para contraste entre seções.

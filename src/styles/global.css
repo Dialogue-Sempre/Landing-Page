@@ -1,0 +1,36 @@
+@import "tailwindcss";
+@import "tailwindcss-animated";
+@import "@fontsource/plus-jakarta-sans/400.css";
+@import "@fontsource/plus-jakarta-sans/500.css";
+@import "@fontsource/plus-jakarta-sans/600.css";
+@import "@fontsource/plus-jakarta-sans/700.css";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+
+  /* Base da marca */
+  --color-brand-blue: #2e5088;
+  --color-brand-blue-light: #6d8eb5;
+  --color-brand-gold: #f2d049;
+  --color-brand-white: #ffffff;
+  --color-brand-ink: #1e293b;
+
+  /* Contraste e suporte (combinam com a base) */
+  --color-brand-green: #1f9d6c;
+  --color-brand-green-soft: #e6f6ef;
+  --color-brand-gold-soft: #fff6d6;
+  --color-brand-surface: #f5f7fb;
+  --color-brand-alert: #dc4a3d;
+  --color-brand-whatsapp: #25d366;
+}
+
+:root {
+  --default-animation-duration: 500ms;
+  --default-animation-delay: 0s;
+  --default-animation-timing-function: ease;
+}
+
+html {
+  font-family: var(--font-sans);
+  scroll-behavior: smooth;
+}

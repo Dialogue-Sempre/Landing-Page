@@ -1,0 +1,49 @@
+---
+import site from '../data/site.json';
+---
+
+<section
+	id="inicio"
+	class="relative isolate flex min-h-[88vh] flex-col justify-center overflow-hidden bg-brand-blue px-4 py-20 text-brand-white sm:px-6 lg:py-28"
+	aria-labelledby="hero-heading"
+>
+	<span
+		class="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(105deg,_#2e5088_0%,_#3d6a9e_40%,_#6d8eb5_100%)]"
+		aria-hidden="true"
+	></span>
+	<span
+		class="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top_right,_rgba(31,157,108,0.28),_transparent_45%),radial-gradient(ellipse_at_bottom_left,_rgba(242,208,73,0.2),_transparent_40%)]"
+		aria-hidden="true"
+	></span>
+	<span
+		class="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle,_rgba(255,255,255,0.22)_1px,_transparent_1px)] bg-size-[28px_28px] opacity-35"
+		aria-hidden="true"
+	></span>
+
+	<p class="animate-fade-up animate-duration-500 mx-auto mb-4 w-full max-w-6xl text-sm font-semibold uppercase tracking-[0.2em] text-brand-gold">
+		{site.name}
+	</p>
+	<h1
+		id="hero-heading"
+		class="animate-fade-up animate-duration-700 mx-auto w-full max-w-4xl text-4xl font-bold leading-tight tracking-tight text-brand-white sm:max-w-6xl sm:text-5xl lg:text-6xl"
+	>
+		{site.h1}
+	</h1>
+	<p class="animate-fade-up animate-duration-700 animate-delay-150 mx-auto mt-6 w-full max-w-6xl text-lg leading-relaxed text-brand-white/90 sm:text-xl">
+		<span class="block max-w-2xl">{site.heroSubtitle}</span>
+	</p>
+	<p class="animate-fade-up animate-duration-700 animate-delay-300 mx-auto mt-10 flex w-full max-w-6xl flex-wrap items-center gap-4">
+		<a
+			href="/cadastro"
+			class="inline-flex items-center justify-center rounded-full bg-brand-gold px-6 py-3 text-base font-semibold text-brand-ink shadow-lg shadow-black/10 transition-all duration-300 hover:-translate-y-0.5 hover:brightness-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-gold"
+		>
+			Comece grátis
+		</a>
+		<a
+			href="/login"
+			class="inline-flex items-center justify-center rounded-full bg-brand-green px-6 py-3 text-base font-semibold text-brand-white shadow-lg shadow-brand-green/25 transition-all duration-300 hover:-translate-y-0.5 hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green"
+		>
+			Já tenho conta
+		</a>
+	</p>
+</section>

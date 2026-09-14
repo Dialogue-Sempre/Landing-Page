@@ -1,0 +1,50 @@
+---
+const navItems = [
+	{ href: '/#dores', label: 'Dores & Solução' },
+	{ href: '/#modulos', label: 'Módulos' },
+	{ href: '/#precos', label: 'Preços' },
+	{ href: '/#contato', label: 'Contato' },
+];
+---
+
+<header class="sticky top-0 z-50 border-b border-brand-blue/10 bg-brand-white/95 backdrop-blur-md">
+	<nav
+		class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4 sm:px-6"
+		aria-label="Navegação principal"
+	>
+		<a href="/" class="text-lg font-bold tracking-tight text-brand-blue" aria-label="Dialogue Sempre — início">
+			DIALOGUE <span class="font-semibold text-brand-gold">Sempre</span>
+		</a>
+
+		<ul class="hidden items-center gap-2 md:flex">
+			{
+				navItems.map((item) => (
+					<li>
+						<a
+							href={item.href}
+							class="rounded-full px-4 py-2 text-sm font-medium text-brand-blue transition-colors hover:bg-brand-blue-light/20 hover:text-brand-blue"
+						>
+							{item.label}
+						</a>
+					</li>
+				))
+			}
+		</ul>
+
+		<p class="flex items-center gap-2 sm:gap-3">
+			<a
+				href="/login"
+				class="hidden rounded-full px-3 py-2 text-sm font-semibold text-brand-blue transition-colors hover:bg-brand-blue-light/15 sm:inline-flex"
+			>
+				Entrar
+			</a>
+			<a
+				href="/cadastro"
+				class="inline-flex items-center justify-center rounded-full bg-brand-gold px-4 py-2 text-sm font-semibold text-brand-ink shadow-sm transition-all duration-300 hover:brightness-105 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-gold"
+				aria-label="Criar conta grátis na Dialogue Sempre"
+			>
+				Comece Grátis
+			</a>
+		</p>
+	</nav>
+</header>

@@ -1,0 +1,80 @@
+# Diretrizes Executáveis: Dialogue Sempre (Landing Page)
+
+Você é um Engenheiro de Software e UI/UX Designer Sênior. Sua função é construir a Landing Page da **Dialogue Sempre** aplicando rigorosamente as regras do projeto e acionando as ferramentas (MCPs e Skills) instaladas no ambiente.
+
+---
+
+## 1. Mapeamento de Ferramentas e Como Aplicá-las
+
+### A. Uso dos Servidores MCP (`.cursor/mcp.json`)
+Sempre que o usuário solicitar a criação ou estilização de um componente visual, você DEVE consultar os MCPs ativos antes de escrever código do zero:
+* **MCP `21st-dev` (Magic UI):** Acesse para buscar layouts de Hero Sections, fundos animados em CSS, cards em gradiente e botões de alta conversão.
+* **MCP `shadcn`:** Acesse para estruturar formulários acessíveis, sanfona de FAQ e componentes de Tabela de Preços.
+
+### B. Uso das Skills e Dependências Instaladas
+* **Ícones (`lucide-astro`):** Importe ícones diretamente via `import { ShieldCheck, FileText, Check, AlertTriangle } from 'lucide-astro';`. Nunca use SVGs manuais nem pacotes FontAwesome.
+* **Animações (`tailwindcss-animated`):** Adicione transições puramente em CSS nas seções (`animate-fade-up animate-duration-700`). É proibido usar bibliotecas de JS pesadas para animações simples.
+* **Tipografia (`@fontsource/plus-jakarta-sans`):** Garanta que a classe `font-sans` utilize a Plus Jakarta Sans.
+
+### C. Paleta de Cores Oficial (marca Dialogue Sempre)
+Obedeça estritamente estas cores base em todo o site. Tokens Tailwind em `src/styles/global.css` (`brand-*`):
+
+| Token | Hex | Uso |
+|-------|-----|-----|
+| `brand-blue` | `#2E5088` | Primária: logo "DIALOGUE", títulos, cards, fundo hero (lado escuro), nav ativa |
+| `brand-blue-light` | `#6D8EB5` | Secundária: gradiente hero (lado claro), ícones suaves, pills de navegação |
+| `brand-gold` | `#F2D049` | Acento/CTA: "Sempre" no logo, destaques de texto, botão primário, bordas de destaque |
+| `brand-green` | `#1F9D6C` | Toque de conformidade/SST: checks, badges de sucesso, CTA secundário, destaques positivos |
+| `brand-green-soft` | `#E6F6EF` | Fundo suave de seções ou cards de solução |
+| `brand-gold-soft` | `#FFF6D6` | Fundo quente discreto (destaques e hovers) |
+| `brand-surface` | `#F5F7FB` | Fundo neutro claro entre seções |
+| `brand-alert` | `#DC4A3D` | Contraste negativo (dores, alertas) — uso pontual |
+| `brand-whatsapp` | `#25D366` | Apenas botões/links de contato WhatsApp |
+| `brand-white` | `#FFFFFF` | Fundos claros e texto sobre azul |
+| `brand-ink` | `#1E293B` | Texto corpo em fundos claros |
+
+**Regras de aplicação:**
+* CTA principal: fundo `brand-gold`, texto `brand-ink` (nunca texto branco no dourado).
+* CTA secundário / conformidade: `brand-green` com texto branco (contraste alto sobre azul/branco).
+* Hero: gradiente `brand-blue` → `brand-blue-light` + leve brilho verde/dourado + grid/pontos em branco.
+* Alternar superfícies (`brand-surface` / `brand-green-soft` / branco) para contraste entre seções, sem abandonar a base azul+dourado.
+* Checks e status positivos: `brand-green`. WhatsApp puro só em `brand-whatsapp`.
+* Destaque de plano: borda `brand-gold` + detalhes `brand-green`.
+
+---
+
+## 2. Escopo do Projeto e Restrições
+* **Landing Page (Astro SSG) + telas de auth front:** marketing/SEO e páginas de **login/cadastro apenas UI** (`/login`, `/cadastro`), sem backend.
+* **Proibido no Código:** NÃO crie áreas autenticadas reais, painéis de gestão (dashboards), conexões com banco de dados (PostgreSQL), APIs Node.js/Fastify ou arquivos Docker. O app operacional roda em outro repositório sob `app.dialoguesempre.com.br`.
+* **Pronto para No-Code (Git-CMS):** Mantenha as props e os textos dos planos isolados em objetos ou arquivos de dados (ex: `src/data/plans.json`) para facilitar a edição futura via Decap CMS/TinaCMS.
+
+---
+
+## 3. SEO e HTML Semântico (Meta: Note 100 PageSpeed)
+Ao criar qualquer arquivo `.astro`, execute as seguintes verificações de SEO:
+1. **Zero DivSoup:** Use exclusivamente `<header>`, `<nav>`, `<main>`, `<section>`, `<article>` e `<footer>`.
+2. **Hierarquia de Títulos:**
+   - **Apenas UM `<h1>` por página** (na Hero Section): `Dialogue Sempre | Plataforma Jurídica e Gestão da NR-1`.
+   - Utilize `<h2>` para títulos de seções e `<h3>` para títulos de cards e planos.
+3. **SEO Técnico (`<BaseHead>`):**
+   - `<title>` e `<meta name="description">` persuasivos e com até 160 caracteres.
+   - Tags Open Graph completas (`og:title`, `og:description`, `og:image`, `og:url`).
+   - Bloco `<script type="application/ld+json">` declarando o Schema.org como `SoftwareApplication` e os 3 planos.
+   - Atributo `alt` obrigatório em todas as imagens.
+
+---
+
+## 4. Roteiro Passo a Passo para Gerar a Página (`index.astro`)
+
+Quando solicitado para gerar ou atualizar a Landing Page, siga exatamente esta ordem de construção:
+
+1. **Header (`<header>`):** Logo da Dialogue Sempre + Menu com links âncora + Botão "Comece Grátis" (link externo para o App).
+2. **Hero Section (`<section>`):** Título `<h1>`, subtítulo focado em conformidade da NR-1 e prevenção de multas, CTA primário (botão `brand-gold` via Magic UI MCP) e background em gradiente azul com grid discreto.
+3. **Dores & Solução (`<section>`):** Comparativo visual da complexidade da NR-1 versus a automação jurídica da Dialogue Sempre.
+4. **Módulos (`<section>`):** 3 cards (`<article>`) utilizando ícones Lucide detalhando: Inventário de Riscos (GRO), Matriz de Severidade e Planos de Ação (PGR).
+5. **Tabela de Preços (`<section>`):** 
+   - *Gratuito:* Limite de colaboradores / degustação.
+   - *Mensal Fixo:* Destaque visual principal (borda `brand-gold`), módulos NR-1 completos.
+   - *Personalizado:* Botão direto para contato/consultoria jurídica.
+6. **Formulário de Captação (`<section>`):** Formulário minimalista (Nome, E-mail, Empresa) usando marcas semânticas (`<label>` e `<input>`).
+7. **Rodapé (`<footer>`):** Direitos autorais, CNPJ e links de políticas de privacidade.

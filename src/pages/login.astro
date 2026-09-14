@@ -1,0 +1,90 @@
+---
+import Layout from '../layouts/Layout.astro';
+import AuthHeader from '../components/AuthHeader.astro';
+---
+
+<Layout
+	title="Entrar | Dialogue Sempre"
+	description="Acesse sua conta Dialogue Sempre para gerenciar conformidade NR-1, inventário de riscos e planos de ação."
+	canonicalPath="/login"
+	robots="noindex,follow"
+>
+	<AuthHeader />
+	<main class="relative isolate min-h-[calc(100vh-4.5rem)] overflow-hidden px-4 py-12 sm:px-6 lg:py-16">
+		<span
+			class="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(135deg,_#2e5088_0%,_#3d6a9e_50%,_#6d8eb5_100%)]"
+			aria-hidden="true"
+		></span>
+		<span
+			class="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top_right,_rgba(31,157,108,0.25),_transparent_45%),radial-gradient(ellipse_at_bottom_left,_rgba(242,208,73,0.18),_transparent_40%)]"
+			aria-hidden="true"
+		></span>
+
+		<section
+			class="mx-auto w-full max-w-md animate-fade-up animate-duration-700 rounded-2xl border border-brand-white/20 bg-brand-white p-8 shadow-xl"
+			aria-labelledby="login-heading"
+		>
+			<header class="mb-8 text-center">
+				<h1 id="login-heading" class="text-2xl font-bold tracking-tight text-brand-blue sm:text-3xl">
+					Entrar na Dialogue Sempre
+				</h1>
+				<p class="mt-2 text-sm text-brand-blue-light">
+					Acesse sua conta para continuar a gestão da NR-1.
+				</p>
+			</header>
+
+			<form action="#" method="post" class="grid gap-5" aria-label="Formulário de login" novalidate>
+				<p>
+					<label for="email" class="mb-1.5 block text-sm font-medium text-brand-blue">E-mail</label>
+					<input
+						type="email"
+						id="email"
+						name="email"
+						required
+						autocomplete="email"
+						class="w-full rounded-lg border border-brand-blue/20 bg-brand-white px-3 py-2.5 text-brand-ink shadow-sm outline-none transition focus:border-brand-green focus:ring-2 focus:ring-brand-green/20"
+						placeholder="voce@empresa.com.br"
+					/>
+				</p>
+				<p>
+					<label for="password" class="mb-1.5 block text-sm font-medium text-brand-blue">Senha</label>
+					<input
+						type="password"
+						id="password"
+						name="password"
+						required
+						autocomplete="current-password"
+						minlength="8"
+						class="w-full rounded-lg border border-brand-blue/20 bg-brand-white px-3 py-2.5 text-brand-ink shadow-sm outline-none transition focus:border-brand-green focus:ring-2 focus:ring-brand-green/20"
+						placeholder="Sua senha"
+					/>
+				</p>
+				<p class="flex items-center justify-between gap-3 text-sm">
+					<label class="inline-flex items-center gap-2 text-brand-ink/80">
+						<input
+							type="checkbox"
+							name="remember"
+							class="h-4 w-4 rounded border-brand-blue/30 text-brand-green focus:ring-brand-green"
+						/>
+						Lembrar de mim
+					</label>
+					<a href="#recuperar" class="font-medium text-brand-blue hover:text-brand-green">Esqueci a senha</a>
+				</p>
+				<button
+					type="submit"
+					class="inline-flex w-full items-center justify-center rounded-full bg-brand-gold px-4 py-3 text-sm font-semibold text-brand-ink transition-all duration-300 hover:brightness-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-gold"
+				>
+					Entrar
+				</button>
+			</form>
+
+			<p class="mt-6 text-center text-sm text-brand-blue-light">
+				Ainda não tem conta?
+				<a href="/cadastro" class="font-semibold text-brand-green hover:underline">Criar cadastro</a>
+			</p>
+			<p class="mt-3 text-center text-xs text-brand-blue-light/80">
+				Interface front-end — autenticação real será conectada em breve.
+			</p>
+		</section>
+	</main>
+</Layout>

@@ -1,0 +1,41 @@
+---
+import site from '../data/site.json';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-brand-blue/30 bg-brand-blue px-4 py-12 text-brand-white/85 sm:px-6">
+	<section class="mx-auto flex max-w-6xl flex-col gap-8 md:flex-row md:items-start md:justify-between">
+		<article>
+			<p class="text-lg font-bold text-brand-white">
+				DIALOGUE <span class="text-brand-gold">Sempre</span>
+			</p>
+			<p class="mt-2 max-w-sm text-sm text-brand-white/75">
+				Plataforma jurídica e de gestão da NR-1 para conformidade contínua.
+			</p>
+			<p class="mt-4 text-sm text-brand-white/60">
+				CNPJ: {site.cnpj}
+			</p>
+		</article>
+
+		<nav aria-label="Links institucionais">
+			<ul class="flex flex-col gap-2 text-sm">
+				<li>
+					<a href="/privacidade" class="transition-colors hover:text-brand-gold">Política de Privacidade</a>
+				</li>
+				<li>
+					<a href="/termos" class="transition-colors hover:text-brand-gold">Termos de Uso</a>
+				</li>
+				<li>
+					<a href={`mailto:${site.email}`} class="transition-colors hover:text-brand-green">
+						{site.email}
+					</a>
+				</li>
+			</ul>
+		</nav>
+	</section>
+
+	<p class="mx-auto mt-10 max-w-6xl border-t border-brand-white/15 pt-6 text-sm text-brand-white/55">
+		© {year} {site.legalName}. Todos os direitos reservados.
+	</p>
+</footer>

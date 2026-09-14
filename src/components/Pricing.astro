@@ -1,0 +1,68 @@
+---
+import { Check } from 'lucide-astro';
+import plans from '../data/plans.json';
+---
+
+<section
+	id="precos"
+	class="relative overflow-hidden bg-brand-green-soft/60 px-4 py-20 sm:px-6 lg:py-24"
+	aria-labelledby="precos-heading"
+>
+	<span
+		class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(46,80,136,0.1),_transparent_45%),radial-gradient(ellipse_at_bottom,_rgba(242,208,73,0.12),_transparent_40%)]"
+		aria-hidden="true"
+	></span>
+
+	<header class="relative mx-auto mb-12 max-w-6xl animate-fade-up animate-duration-700">
+		<h2 id="precos-heading" class="text-3xl font-bold tracking-tight text-brand-blue sm:text-4xl">
+			Tabela de preços
+		</h2>
+		<p class="mt-3 max-w-2xl text-lg text-brand-blue-light">
+			Escolha o plano ideal para a conformidade NR-1 da sua empresa. Valores editáveis via dados do projeto.
+		</p>
+	</header>
+
+	<section class="relative mx-auto grid max-w-6xl gap-6 lg:grid-cols-3" aria-label="Planos disponíveis">
+		{
+			plans.map((plan) => (
+				<article
+					class:list={[
+						'flex flex-col rounded-2xl border bg-brand-white p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl',
+						plan.highlighted
+							? 'border-brand-gold bg-brand-gold-soft/40 shadow-lg shadow-brand-gold/20 ring-2 ring-brand-gold'
+							: 'border-brand-blue/15 hover:border-brand-green/40',
+					]}
+				>
+					{plan.highlighted && (
+						<p class="mb-3 text-xs font-bold uppercase tracking-wider text-brand-green">Mais escolhido</p>
+					)}
+					<h3 class="text-xl font-semibold text-brand-blue">{plan.name}</h3>
+					<p class="mt-2 text-sm text-brand-blue-light">{plan.description}</p>
+					<p class="mt-6 flex items-baseline gap-1">
+						<span class="text-3xl font-bold text-brand-blue">{plan.price}</span>
+						{plan.period && <span class="text-brand-blue-light">{plan.period}</span>}
+					</p>
+					<ul class="mt-6 flex-1 space-y-3">
+						{plan.features.map((feature) => (
+							<li class="flex items-start gap-2 text-sm text-brand-ink/80">
+								<Check class="mt-0.5 h-4 w-4 shrink-0 text-brand-green" aria-hidden="true" />
+								{feature}
+							</li>
+						))}
+					</ul>
+					<a
+						href={plan.cta.href}
+						class:list={[
+							'mt-8 inline-flex items-center justify-center rounded-full px-4 py-3 text-sm font-semibold transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2',
+							plan.highlighted
+								? 'bg-brand-gold text-brand-ink hover:brightness-105 focus-visible:outline-brand-gold'
+								: 'bg-brand-green text-brand-white hover:brightness-110 focus-visible:outline-brand-green',
+						]}
+					>
+						{plan.cta.label}
+					</a>
+				</article>
+			))
+		}
+	</section>
+</section>

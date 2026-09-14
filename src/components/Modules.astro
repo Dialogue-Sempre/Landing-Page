@@ -1,0 +1,43 @@
+---
+import { AlertTriangle, FileText, ShieldCheck } from 'lucide-astro';
+import modules from '../data/modules.json';
+
+const icons = {
+	ShieldCheck,
+	AlertTriangle,
+	FileText,
+} as const;
+
+const accents = ['text-brand-gold', 'text-brand-green', 'text-brand-gold'] as const;
+---
+
+<section
+	id="modulos"
+	class="bg-brand-white px-4 py-20 sm:px-6 lg:py-24"
+	aria-labelledby="modulos-heading"
+>
+	<header class="mx-auto mb-12 max-w-6xl animate-fade-up animate-duration-700">
+		<h2 id="modulos-heading" class="text-3xl font-bold tracking-tight text-brand-blue sm:text-4xl">
+			Módulos do sistema
+		</h2>
+		<p class="mt-3 max-w-2xl text-lg text-brand-blue-light">
+			Tudo o que você precisa para GRO e PGR em um fluxo único, auditável e orientado à NR-1.
+		</p>
+	</header>
+
+	<section class="mx-auto grid max-w-6xl gap-6 md:grid-cols-3" aria-label="Lista de módulos NR-1">
+		{
+			modules.map((module, index) => {
+				const Icon = icons[module.icon as keyof typeof icons];
+				const accent = accents[index % accents.length];
+				return (
+					<article class="rounded-2xl bg-brand-blue p-8 text-brand-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+						{Icon && <Icon class:list={['mb-4 h-6 w-6', accent]} aria-hidden="true" />}
+						<h3 class="text-xl font-semibold text-brand-white">{module.title}</h3>
+						<p class="mt-3 text-brand-white/85">{module.description}</p>
+					</article>
+				);
+			})
+		}
+	</section>
+</section>
