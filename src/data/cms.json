@@ -4,10 +4,10 @@
   "repo": "Landing-Page",
   "branch": "CMS",
   "files": {
-    "site": "src/data/site.json",
-    "painPoints": "src/data/painPoints.json",
-    "modules": "src/data/modules.json",
-    "plans": "src/data/plans.json",
-    "contact": "src/data/contact.json"
+    "site": "data/site.json",
+    "painPoints": "data/painPoints.json",
+    "modules": "data/modules.json",
+    "plans": "data/plans.json",
+    "contact": "data/contact.json"
   }
 }
